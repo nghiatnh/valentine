@@ -153,7 +153,7 @@ body {
 /* Buttons */
 .buttons-container {
   display: flex;
-  gap: 30px;
+  gap: 60px;
   justify-content: center;
   align-items: center;
 }

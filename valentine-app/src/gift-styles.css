@@ -1,0 +1,138 @@
+/* Gift reveal screen styles */
+.gift-reveal-container {
+    padding: 20px;
+    animation: successFadeIn 0.8s ease-in;
+}
+
+.gift-message {
+    font-size: 1.4rem;
+    color: #fff;
+    line-height: 2;
+    margin-bottom: 50px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.gifts-display {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.gift-item {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px 25px;
+    min-width: 150px;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    animation: giftFloat 3s ease-in-out infinite;
+}
+
+.gift-item:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.gift-item:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.gift-item:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes giftFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.gift-item:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.gift-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: rotate 4s ease-in-out infinite;
+}
+
+@keyframes rotate {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-10deg);
+    }
+
+    75% {
+        transform: rotate(10deg);
+    }
+}
+
+.gift-label {
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 500;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.final-message {
+    font-size: 1.8rem;
+    color: #fff;
+    line-height: 2;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+.final-message em {
+    font-style: italic;
+    color: #ffe0f0;
+    font-size: 1.3rem;
+}
+
+/* Responsive for gift screen */
+@media (max-width: 768px) {
+    .gifts-display {
+        gap: 20px;
+    }
+
+    .gift-item {
+        min-width: 120px;
+        padding: 20px 15px;
+    }
+
+    .gift-icon {
+        font-size: 3rem;
+    }
+
+    .gift-label {
+        font-size: 1rem;
+    }
+
+    .gift-message {
+        font-size: 1.2rem;
+    }
+
+    .final-message {
+        font-size: 1.4rem;
+    }
+}

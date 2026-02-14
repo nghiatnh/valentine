@@ -1,19 +1,14 @@
 import { useState, useRef, useEffect } from 'react'
 import './App.css'
+import './gift-styles.css'
+import romanticMusic from './assets/50nam.mcp3'
 
 function App() {
-  const [showQuestion, setShowQuestion] = useState(true)
+  const [screen, setScreen] = useState('question') // 'question', 'gift', 'final'
   const [buttonPositions, setButtonPositions] = useState({ yes: 0, no: 1 })
-  const audioRef = useRef(null)
-
-  useEffect(() => {
-    // Auto-play music when component mounts
-    if (audioRef.current) {
-      audioRef.current.play().catch(err => {
-        console.log("Auto-play prevented. User interaction needed.");
-      });
-    }
-  }, [])
+  const [giftButtonPositions, setGiftButtonPositions] = useState({ yes: 0, no: 1 })
+  const celebrationAudioRef = useRef(null)
+  const romanticAudioRef = useRef(null)
 
   const handleNoHover = () => {
     // Swap positions when hovering over "No" button
@@ -23,19 +18,53 @@ function App() {
     }))
   }
 
+  const handleGiftNoHover = () => {
+    // Swap positions for gift buttons
+    setGiftButtonPositions(prev => ({
+      yes: prev.no,
+      no: prev.yes
+    }))
+  }
+
   const handleYesClick = () => {
-    setShowQuestion(false)
-    if (audioRef.current) {
-      audioRef.current.play()
+    setScreen('gift')
+    // Play celebration music for 5 seconds
+    if (celebrationAudioRef.current) {
+      celebrationAudioRef.current.currentTime = 0
+      celebrationAudioRef.current.play()
+      // Stop after 5 seconds
+      setTimeout(() => {
+        if (celebrationAudioRef.current) {
+          celebrationAudioRef.current.pause()
+          celebrationAudioRef.current.currentTime = 0
+        }
+      }, 5000)
     }
   }
 
+  const handleGiftYesClick = () => {
+    setScreen('final')
+    // Stop celebration music
+    if (celebrationAudioRef.current) {
+      celebrationAudioRef.current.pause()
+      celebrationAudioRef.current.currentTime = 0
+    }
+    // Auto-play romantic music on final screen
+    setTimeout(() => {
+      if (romanticAudioRef.current) {
+        romanticAudioRef.current.play().catch(err => {
+          console.log("Auto-play prevented. Click the music button to play.");
+        });
+      }
+    }, 500)
+  }
+
   const handleMusicToggle = () => {
-    if (audioRef.current) {
-      if (audioRef.current.paused) {
-        audioRef.current.play()
+    if (romanticAudioRef.current) {
+      if (romanticAudioRef.current.paused) {
+        romanticAudioRef.current.play()
       } else {
-        audioRef.current.pause()
+        romanticAudioRef.current.pause()
       }
     }
   }
@@ -55,18 +84,23 @@ function App() {
         ))}
       </div>
 
-      {/* Audio element */}
-      <audio ref={audioRef} loop>
-        <source src="https://cdn.glitch.global/examples/50-nam-ve-sau.mp3" type="audio/mpeg" />
+      {/* Audio elements */}
+      <audio ref={celebrationAudioRef}>
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg" />
+      </audio>
+      <audio ref={romanticAudioRef} loop>
+        <source src={romanticMusic} type="audio/mpeg" />
       </audio>
 
-      {/* Music control button */}
-      <button className="music-control" onClick={handleMusicToggle}>
-        🎵
-      </button>
+      {/* Music control button - only show on final screen */}
+      {screen === 'final' && (
+        <button className="music-control" onClick={handleMusicToggle}>
+          🎵
+        </button>
+      )}
 
       <div className="content">
-        {showQuestion ? (
+        {screen === 'question' ? (
           <div className="question-container">
             <h1 className="title">💕 Valentine's Day 2026 💕</h1>
             <p className="message">
@@ -92,7 +126,7 @@ function App() {
               </button>
             </div>
           </div>
-        ) : (
+        ) : screen === 'gift' ? (
           <div className="success-container">
             <h1 className="success-title">🎉 Anh biết mà 🎉</h1>
             <div className="success-hearts">
@@ -107,6 +141,46 @@ function App() {
             <div className="romantic-quote">
               "Khoảng cách chỉ là con số,<br />
               tình yêu mới là điều vĩnh cửu." 💫
+            </div>
+
+            <h2 className="question" style={{ marginTop: '40px' }}>
+              Em có muốn nhận quà từ anh không? 🎁
+            </h2>
+
+            <div className="buttons-container">
+              <button
+                className="btn btn-yes"
+                onClick={handleGiftYesClick}
+                style={{ order: giftButtonPositions.yes }}
+              >
+                Nhận quà 🎁
+              </button>
+              <button
+                className="btn btn-no"
+                onMouseEnter={handleGiftNoHover}
+                style={{ order: giftButtonPositions.no }}
+              >
+                Không nhận 🙅‍♀️
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="gift-reveal-container">
+            <h1 className="success-title">💝 Yêu em nhiều 💝</h1>
+            <p className="gift-message">
+              Anh xin lỗi vì ở xa không tặng cho em được,<br />
+              nhưng khi ta gặp lại em hãy nhận lấy nó nhé 💕
+            </p>
+
+            <div className="gifts-display">
+              <div className="gift-item">
+                <div className="gift-icon">💐</div>
+                <p className="gift-label">Một bó hoa tươi</p>
+              </div>
+              <div className="gift-item">
+                <div className="gift-icon">🍫</div>
+                <p className="gift-label">Một hộp sô cô la</p>
+              </div>
             </div>
           </div>
         )}

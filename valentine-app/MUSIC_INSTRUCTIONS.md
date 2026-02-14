@@ -1,28 +1,31 @@
-# Hướng dẫn thêm nhạc "50 Năm Về Sau"
+# Hướng dẫn thêm file nhạc
 
-## Cách 1: Sử dụng file MP3 local (Khuyên dùng)
+## File nhạc cần thiết:
 
-1. Tải file nhạc "50 Năm Về Sau" về máy (định dạng MP3)
-2. Đặt file vào thư mục `public` của dự án:
-   ```
-   /home/nghiatnh/projects/valentine/valentine-app/public/50-nam-ve-sau.mp3
-   ```
-3. Cập nhật đường dẫn trong file `App.jsx`:
-   ```jsx
-   <audio ref={audioRef} loop>
-     <source src="/50-nam-ve-sau.mp3" type="audio/mpeg" />
-   </audio>
-   ```
+### 1. Nhạc vui (celebration.mp3)
+- Đặt vào: `/home/nghiatnh/projects/valentine/valentine-app/public/celebration.mp3`
+- Mục đích: Phát 5 giây khi click "Có" ở màn hình đầu tiên
+- Gợi ý: Nhạc vui nhộn, sôi động (ví dụ: "Happy" của Pharrell Williams, hoặc nhạc tiệc tùng)
 
-## Cách 2: Sử dụng link YouTube hoặc streaming
+### 2. Nhạc lãng mạn (50nam.mp3)
+- File hiện tại: `/home/nghiatnh/projects/valentine/valentine-app/src/assets/50nam.mcp3`
+- Cần đổi tên thành: `50nam.mp3` (nếu đây là file MP3)
+- Hoặc cập nhật code để dùng đúng extension
 
-Nếu muốn dùng link từ YouTube hoặc các nền tảng khác, bạn có thể:
-1. Tải file MP3 từ YouTube (sử dụng các công cụ như youtube-dl)
-2. Upload lên hosting (Google Drive, Dropbox, hoặc hosting riêng)
-3. Cập nhật link trong `App.jsx`
+## Cách thêm:
 
-## Lưu ý
+```bash
+# Đổi tên file nếu cần
+cd /home/nghiatnh/projects/valentine/valentine-app/src/assets
+mv 50nam.mcp3 50nam.mp3
 
-- Nhạc sẽ tự động phát khi trang web load (nếu trình duyệt cho phép)
-- Nếu trình duyệt chặn auto-play, người dùng có thể click vào nút 🎵 ở góc trên bên phải để bật nhạc
-- Nút 🎵 có thể dùng để tắt/bật nhạc bất cứ lúc nào
+# Tạo thư mục public nếu chưa có
+mkdir -p /home/nghiatnh/projects/valentine/valentine-app/public
+
+# Copy file nhạc vui vào public (thay đổi đường dẫn phù hợp)
+cp ~/Downloads/celebration.mp3 /home/nghiatnh/projects/valentine/valentine-app/public/
+```
+
+## Lưu ý:
+- File trong `public/` sẽ được truy cập bằng đường dẫn `/filename.mp3`
+- File trong `src/assets/` cần import hoặc dùng đường dẫn tương đối
