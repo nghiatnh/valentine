@@ -133,7 +133,7 @@ function App() {
               💖💗💝💘💞💕
             </div>
             <p className="success-message">
-              Anh yêu em rất rất nhiều ❤️<br />
+              Anh cũng yêu em rất rất nhiều ❤️<br />
               Dù xa cách, tình yêu của chúng ta vẫn luôn gần gũi em nhé 😘<br />
               <br />
               <em>"50 năm về sau, em vẫn sẽ là tình yêu của anh..."</em> 🌹
@@ -174,11 +174,23 @@ function App() {
 
             <div className="gifts-display">
               <div className="gift-item">
-                <div className="gift-icon">💐</div>
+                <div className="gift-icon">
+                  <img
+                    src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=400&fit=crop"
+                    alt="Bouquet of roses"
+                    className="gift-image"
+                  />
+                </div>
                 <p className="gift-label">Một bó hoa tươi</p>
               </div>
               <div className="gift-item">
-                <div className="gift-icon">🍫</div>
+                <div className="gift-icon">
+                  <img
+                    src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=400&fit=crop"
+                    alt="Box of chocolates"
+                    className="gift-image"
+                  />
+                </div>
                 <p className="gift-label">Một hộp sô cô la</p>
               </div>
             </div>
